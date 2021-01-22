@@ -90,10 +90,6 @@ for i in range(data.shape[0]):
 
 # If there is a 'not reported' value in data we will replace it with NaN
 data = data.replace("not reported", np.nan)
-previev_of_data = data
-# Describe of data
-print(data.describe())
-
 
 # PREPROCESSING #
 
@@ -177,7 +173,6 @@ id_columns = {"submitter_id", "diagnosis_id", "exposure_id", "demographic_id", "
               "days_to_last_follow_up"}
 data.drop(id_columns, axis=1, inplace=True)
 
-print(data.isnull().sum())
 
 '''Now we have just have NaN values in 'ethnicity' and 'race' columns. These columns are highly related with cancer genetic
 we will keep them as unknown'''
@@ -196,9 +191,7 @@ le = preprocessing.LabelEncoder()
 # are identical we'll drop one of them
 if (data['tissue_or_organ_of_origin'].equals(data['site_of_resection_or_biopsy'])):
     data.drop(["tissue_or_organ_of_origin"], axis=1, inplace=True)
-# NaN values
-print("NaN values in dataset")
-print(data.isnull().sum())
+
 # Our categorial columns are: ("primary_diagnosis","tissue_or_organ_of_origin","morphology","site_of_resection_or_biopsy","tumor_stage","ethnicity","race")
 categorical_columns = ("primary_diagnosis", "morphology", "tumor_stage",
                        "site_of_resection_or_biopsy", "ethnicity", "race", "vital_status", "gender", "disease")
@@ -222,7 +215,7 @@ for i in categorical_columns:
 
 # APPLYING MACHINE LEARNING ALGORITHMS#
 
-print(data.shape)
+
 
 # Our ground truth vector will be risk_of_patient
 y = data.risk_of_patient
